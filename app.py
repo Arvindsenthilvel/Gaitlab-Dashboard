@@ -8,7 +8,7 @@ import json, math, io, csv
 
 st.set_page_config(
     page_title="GaitLab Dashboard",
-    page_icon="🦿",
+    page_icon="",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -21,7 +21,6 @@ st.markdown("""
 /* Hide streamlit branding */
 #MainMenu {visibility: hidden;}
 footer {visibility: hidden;}
-header {visibility: hidden;}
 
 /* Global */
 html, body, [data-testid="stAppViewContainer"] {
@@ -197,13 +196,13 @@ def short_name(s):
 # SIDEBAR
 # ─────────────────────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.markdown("## 🦿 GaitLab")
-    st.markdown("<small style='color:#7d8590'>PSG College of Technology</small>", unsafe_allow_html=True)
+    st.markdown("## GaitLab")
+    st.markdown("<small style='color:#7d8590'>Arvind, Dr. Varshini Karthik -SRM Institute of Science and Technology</small>", unsafe_allow_html=True)
     st.markdown("---")
     page = st.radio(
         "Navigate",
-        ["🏠 Overview", "👥 Subjects", "📊 Spatiotemporal", "🦵 Kinematic",
-         "⚡ Kinetic", "🔌 EMG", "📈 Statistics", "📉 Charts", "🗃️ Raw Data", "💡 Key Inferences"],
+        ["Overview", "Subjects", "Spatiotemporal", "Kinematic",
+         "Kinetic", "EMG", "Statistics", "Charts", "Raw Data", "Key Inferences"],
         label_visibility="collapsed"
     )
     st.markdown("---")
@@ -217,14 +216,14 @@ with st.sidebar:
     </div>
     """, unsafe_allow_html=True)
 
-pg = page.split(" ", 1)[1].strip()
+pg = page
 
 # ─────────────────────────────────────────────────────────────────────────────
 # PAGE: OVERVIEW
 # ─────────────────────────────────────────────────────────────────────────────
 if pg == "Overview":
     st.markdown('<div class="section-header">Overview — Multimodal Gait & EMG Analysis</div>', unsafe_allow_html=True)
-    st.markdown('<div class="study-tag">Single-task vs Dual-task (Smartphone) · N=25 · Healthy young adults · Age 18–25 · PSG College of Technology · Qualisys + Bertec + Delsys Trigno</div>', unsafe_allow_html=True)
+    st.markdown('<div class="study-tag">Single-task vs Dual-task (Smartphone) · N=25 · Healthy young adults · Age 18–25 · SRM Institute of Science and Technology · CAMERA LAB</div>', unsafe_allow_html=True)
 
     c1, c2, c3, c4 = st.columns(4)
     c1.metric("Walking Speed", "1.19 m/s", "↓ 16.4%  p<0.001", delta_color="inverse")
@@ -298,13 +297,13 @@ if pg == "Overview":
     with col_c:
         st.markdown("#### Study Equipment")
         equip = [
-            ("🎥 Motion Capture","Qualisys ARQUS — 8 IR + 2 video cameras"),
-            ("📍 Marker Model","IOR Lower Body — 26 static / 20 dynamic"),
-            ("⚖️ Force Plates","2× Bertec — GRF, Braking, Propulsion"),
-            ("🔌 EMG","Delsys Trigno — Gastrocn. Med & Lat (L & R)"),
-            ("📊 Statistics","Paired t-test & Wilcoxon · Jamovi · α=0.05"),
-            ("👥 Participants","N=25 healthy young adults · 18–25 yrs"),
-            ("🏃 Conditions","Normal walk vs Walk + Smartphone"),
+            ("Motion Capture","Qualisys ARQUS — 8 IR + 2 video cameras"),
+            ("Marker Model","IOR Lower Body — 26 static / 20 dynamic"),
+            ("Force Plates","2× Bertec — GRF, Braking, Propulsion"),
+            ("EMG","Delsys Trigno — Gastrocn. Med & Lat (L & R)"),
+            ("Statistics","Paired t-test & Wilcoxon · Jamovi · α=0.05"),
+            ("Participants","N=25 healthy young adults · 18–25 yrs"),
+            ("Conditions","Normal walk vs Walk + Smartphone"),
         ]
         for icon_lbl, detail in equip:
             st.markdown(f"**{icon_lbl}** — <small style='color:#7d8590'>{detail}</small>", unsafe_allow_html=True)
@@ -329,7 +328,7 @@ elif pg == "Subjects":
         })
     subj_df = pd.DataFrame(rows)
 
-    search = st.text_input("🔍 Search subject name", placeholder="Type to filter...")
+    search = st.text_input("Search subject name", placeholder="Type to filter...")
     if search:
         subj_df = subj_df[subj_df["Name"].str.lower().str.contains(search.lower())]
 
@@ -397,7 +396,7 @@ elif pg == "Spatiotemporal":
                        f"{sym} {abs(s['chg'])}%  p={s['p']}",
                        delta_color="inverse" if s["chg"] < 0 else "normal")
 
-    tab1, tab2, tab3 = st.tabs(["📊 Group Comparison", "👤 Individual Scatter", "🗃️ Data Table"])
+    tab1, tab2, tab3 = st.tabs(["Group Comparison", "Individual Scatter", "Data Table"])
 
     with tab1:
         fig = go.Figure()
@@ -465,7 +464,7 @@ elif pg == "Kinematic":
     </div>
     """, unsafe_allow_html=True)
 
-    tab1, tab2, tab3 = st.tabs(["📊 Group Comparison", "👤 All Subjects", "🗃️ Data Table"])
+    tab1, tab2, tab3 = st.tabs(["Group Comparison", "All Subjects", "Data Table"])
 
     with tab1:
         lbls = [STATS[k]["label"] for k in pks]
@@ -529,7 +528,7 @@ elif pg == "Kinetic":
     </div>
     """, unsafe_allow_html=True)
 
-    tab1, tab2, tab3 = st.tabs(["📊 Mean Comparison", "📐 P:B Ratio per Subject", "🗃️ Data Table"])
+    tab1, tab2, tab3 = st.tabs(["Mean Comparison", "P:B Ratio per Subject", "Data Table"])
 
     with tab1:
         fig = go.Figure()
@@ -596,7 +595,7 @@ elif pg == "EMG":
     </div>
     """, unsafe_allow_html=True)
 
-    tab1, tab2, tab3 = st.tabs(["📊 RMS Per Subject", "🔵 Control vs Smartphone", "🗃️ Data Table"])
+    tab1, tab2, tab3 = st.tabs(["RMS Per Subject", "Control vs Smartphone", "Data Table"])
 
     with tab1:
         en = [short_name(s) for s in es]
@@ -641,7 +640,7 @@ elif pg == "Statistics":
     st.markdown('<div class="section-header">Statistical Analysis Results</div>', unsafe_allow_html=True)
     st.markdown('<div class="study-tag">Normality: Shapiro-Wilk · Parametric: Paired t-test · Non-parametric: Wilcoxon signed-rank · α = 0.05</div>', unsafe_allow_html=True)
 
-    tab1, tab2, tab3 = st.tabs(["📋 Full Results", "🔬 Shapiro-Wilk", "📊 CV% Variability"])
+    tab1, tab2, tab3 = st.tabs(["Full Results", "Shapiro-Wilk", "CV% Variability"])
 
     with tab1:
         rows = []
@@ -700,7 +699,7 @@ elif pg == "Charts":
     st.markdown('<div class="section-header">Charts & Visualisations</div>', unsafe_allow_html=True)
     ns = [short_name(s) for s in SUBJECTS_RAW]
 
-    tab1, tab2, tab3, tab4 = st.tabs(["📈 Speed & Stride", "⚖️ Impulse & Radar", "🦵 Joint Angles", "📊 All Parameters"])
+    tab1, tab2, tab3, tab4 = st.tabs(["Speed & Stride", "Impulse & Radar", "Joint Angles", "All Parameters"])
 
     with tab1:
         c1, c2 = st.columns(2)
@@ -841,7 +840,7 @@ elif pg == "Raw Data":
     col_dl1, col_dl2 = st.columns(2)
     buf = io.StringIO()
     df_raw.to_csv(buf, index=False)
-    col_dl1.download_button("⬇️ Download filtered CSV", buf.getvalue(),
+    col_dl1.download_button("Download filtered CSV", buf.getvalue(),
                              "gait_filtered.csv", "text/csv")
 
     all_rows = []
@@ -853,7 +852,7 @@ elif pg == "Raw Data":
         all_rows.append(row)
     buf2 = io.StringIO()
     pd.DataFrame(all_rows).to_csv(buf2, index=False)
-    col_dl2.download_button("⬇️ Download full dataset CSV", buf2.getvalue(),
+    col_dl2.download_button("Download full dataset CSV", buf2.getvalue(),
                              "gait_full_dataset.csv", "text/csv")
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -861,9 +860,9 @@ elif pg == "Raw Data":
 # ─────────────────────────────────────────────────────────────────────────────
 elif pg == "Key Inferences":
     st.markdown('<div class="section-header">Key Inferences & Novel Findings</div>', unsafe_allow_html=True)
-    st.markdown('<div class="study-tag">Derived from statistical results · Ready for journal Discussion & PPT slides</div>', unsafe_allow_html=True)
+    st.markdown('<div class="study-tag">Derived from statistical results </div>', unsafe_allow_html=True)
 
-    tab1, tab2 = st.tabs(["💡 All Inferences", "📋 PPT Slide Bullets"])
+    tab1, = st.tabs(["All Inferences"])
 
     with tab1:
         c1, c2 = st.columns(2)
@@ -875,32 +874,3 @@ elif pg == "Key Inferences":
             <div class="infer-body">{text}</div>
             </div>
             """, unsafe_allow_html=True)
-
-    with tab2:
-        bullets = [
-            (1,"Smartphone use reduced walking speed 16.4% (p<0.001, RBC=0.991)",
-             "Near-perfect effect size — virtually every participant slowed when using a smartphone."),
-            (2,"Stride length showed largest effect in study (d=1.398 — Huge)",
-             "Average step shortened by 12.1 cm — fundamental reorganisation of gait pattern."),
-            (3,"Double support ↑34.6%, variability ↑62.9% — fall-avoidance gait",
-             "Conservative stability strategy: more bilateral support, less rhythmic consistency."),
-            (4,"Only ankle DF changed — hip & knee preserved (distal compensation)",
-             "Despite 16% slower speed, ankle actively compensated — CNS protects proximal joints."),
-            (5,"Propulsion impulse fell 18.2% — mechanical cause of speed loss (p=0.001)",
-             "Force plate data reveals mechanism: attenuated push-off during late stance."),
-            (6,"Net impulse sign reversal: net-propulsive → net-decelerative",
-             "Control: +0.9 N·s. Smartphone: −0.7 N·s. Only detectable with force plates."),
-            (7,"EMG ↑11.6% yet propulsion ↓18.2% — neuromuscular inefficiency",
-             "More activation, less output. Underpowered (n=13), requires larger EMG study."),
-            (8,"Step efficiency declined 7.9% — genuine locomotor inefficiency",
-             "Stride length/cadence ratio: 0.01200→0.01105. Not just voluntary speed reduction."),
-            (9,"Inter-individual variability doubled — high/low responder subgroups",
-             "Speed CV: 9.7%→20.7%. Attentional capacity determines dual-task vulnerability."),
-        ]
-        df_bullets = pd.DataFrame(bullets, columns=["#","Slide Heading (Bold)","Speaker Note / Body Text"])
-        st.dataframe(df_bullets, use_container_width=True, hide_index=True)
-
-        buf = io.StringIO()
-        df_bullets.to_csv(buf, index=False)
-        st.download_button("⬇️ Download PPT bullets as CSV", buf.getvalue(),
-                           "ppt_bullets.csv", "text/csv")
