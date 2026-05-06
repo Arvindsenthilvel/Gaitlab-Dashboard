@@ -1,3 +1,5 @@
+python
+
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -17,7 +19,8 @@ st.markdown("""
 <style>
 #MainMenu {visibility: hidden;}
 footer {visibility: hidden;}
-header {visibility: hidden;}
+/* Only hide the header text/branding, NOT the sidebar toggle button */
+header [data-testid="stToolbar"] {visibility: hidden;}
 html, body, [data-testid="stAppViewContainer"] {
     background-color: #0d1117; color: #e6edf3;
 }
@@ -26,6 +29,16 @@ html, body, [data-testid="stAppViewContainer"] {
     border-right: 1px solid #30363d;
 }
 [data-testid="stSidebar"] * { color: #e6edf3 !important; }
+/* Style the sidebar toggle/collapse button to be visible */
+[data-testid="collapsedControl"] {
+    color: #58a6ff !important;
+    background-color: #161b22 !important;
+    border: 1px solid #30363d !important;
+    border-radius: 0 6px 6px 0 !important;
+}
+button[kind="header"] {
+    color: #58a6ff !important;
+}
 [data-testid="metric-container"] {
     background: linear-gradient(135deg, rgba(88,166,255,0.08), rgba(188,140,255,0.04));
     border: 1px solid rgba(88,166,255,0.15); border-radius: 10px; padding: 12px 16px;
@@ -144,11 +157,9 @@ def pct_change(a, b):
 def emg_subs():
     return [s for s in SUBJECTS_RAW if s.get("EMG_RMS_ctrl") is not None]
 
-# Use "Subject N" as the display label everywhere — name field already contains this
 def slabel(s):
-    return s["name"]   # already "Subject 1", "Subject 2", etc.
+    return s["name"]
 
-# Short label for chart axes: "S1", "S2", ...
 def sshort(s):
     return f"S{s['id']}"
 
