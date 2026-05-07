@@ -787,7 +787,7 @@ elif pg == "Raw Data":
 elif pg == "Key Inferences":
     st.markdown('<div class="section-header">Key Inferences & Novel Findings</div>', unsafe_allow_html=True)
     st.markdown('<div class="study-tag">Derived from statistical results · Ready for journal Discussion & PPT slides</div>', unsafe_allow_html=True)
-    tab1, tab2 = st.tabs(["💡 All Inferences", "📋 PPT Slide Bullets"])
+    tab1, = st.tabs(["💡 All Inferences"])
     with tab1:
         c1, c2 = st.columns(2)
         for i, (title, cat, color, text) in enumerate(INFERENCES):
@@ -795,24 +795,4 @@ elif pg == "Key Inferences":
             col.markdown(f'''<div class="info-card {color}">
             <div class="infer-title">{i+1}. {title} <span class="infer-cat">[{cat}]</span></div>
             <div class="infer-body">{text}</div></div>''', unsafe_allow_html=True)
-    with tab2:
-        bullets = [
-            (1,"Smartphone use reduced walking speed 16.4% (p<0.001, RBC=0.991)",
-             "Near-perfect effect size — virtually every participant slowed when using a smartphone."),
-            (2,"Stride length showed largest effect in study (d=1.398 — Huge)",
-             "Average step shortened by 12.1 cm — fundamental reorganisation of gait pattern."),
-            (3,"Double support ↑34.6%, variability ↑62.9% — fall-avoidance gait",
-             "Conservative stability strategy: more bilateral support, less rhythmic consistency."),
-            (4,"Only ankle DF changed — hip & knee preserved (distal compensation)",
-             "Despite 16% slower speed, ankle actively compensated — CNS protects proximal joints."),
-            (5,"Propulsion impulse fell 18.2% — mechanical cause of speed loss (p=0.001)",
-             "Force plate data reveals mechanism: attenuated push-off during late stance."),
-            (6,"Net impulse sign reversal: net-propulsive → net-decelerative",
-             "Control: +0.9 N·s. Smartphone: −0.7 N·s. Only detectable with force plates."),
-            (7,"EMG ↑11.6% yet propulsion ↓18.2% — neuromuscular inefficiency",
-             "More activation, less output. Underpowered (n=13), requires larger EMG study."),
-        ]
-        df_b = pd.DataFrame(bullets, columns=["#","Slide Heading","Speaker Note"])
-        st.dataframe(df_b, use_container_width=True, hide_index=True)
-        buf = io.StringIO(); df_b.to_csv(buf, index=False)
-        st.download_button("⬇️ Download PPT bullets CSV", buf.getvalue(), "ppt_bullets.csv", "text/csv")
+
