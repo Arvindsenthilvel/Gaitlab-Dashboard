@@ -1,4 +1,3 @@
-
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -18,8 +17,23 @@ st.markdown("""
 <style>
 #MainMenu {visibility: hidden;}
 footer {visibility: hidden;}
-/* Only hide the header text/branding, NOT the sidebar toggle button */
-header [data-testid="stToolbar"] {visibility: hidden;}
+/* Hide only the deploy button and Streamlit branding, keep the sidebar toggle */
+[data-testid="stToolbar"] {visibility: hidden;}
+[data-testid="stDecoration"] {visibility: hidden;}
+/* Keep sidebar toggle (hamburger) button always visible */
+[data-testid="collapsedControl"],
+[data-testid="stSidebarCollapsedControl"] {
+    visibility: visible !important;
+    display: flex !important;
+    background-color: #161b22 !important;
+    border: 1px solid #30363d !important;
+    border-left: none !important;
+    border-radius: 0 6px 6px 0 !important;
+}
+[data-testid="collapsedControl"] svg,
+[data-testid="stSidebarCollapsedControl"] svg {
+    fill: #58a6ff !important;
+}
 html, body, [data-testid="stAppViewContainer"] {
     background-color: #0d1117; color: #e6edf3;
 }
@@ -28,16 +42,6 @@ html, body, [data-testid="stAppViewContainer"] {
     border-right: 1px solid #30363d;
 }
 [data-testid="stSidebar"] * { color: #e6edf3 !important; }
-/* Style the sidebar toggle/collapse button to be visible */
-[data-testid="collapsedControl"] {
-    color: #58a6ff !important;
-    background-color: #161b22 !important;
-    border: 1px solid #30363d !important;
-    border-radius: 0 6px 6px 0 !important;
-}
-button[kind="header"] {
-    color: #58a6ff !important;
-}
 [data-testid="metric-container"] {
     background: linear-gradient(135deg, rgba(88,166,255,0.08), rgba(188,140,255,0.04));
     border: 1px solid rgba(88,166,255,0.15); border-radius: 10px; padding: 12px 16px;
