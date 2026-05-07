@@ -15,36 +15,6 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-#MainMenu {visibility: hidden;}
-footer {visibility: hidden;}
-
-/* Make header invisible but keep DOM structure intact */
-header {background: transparent !important; height: 0 !important; min-height: 0 !important;}
-header * {visibility: hidden !important;}
-
-/* Override: always show sidebar toggle button, fixed on left edge */
-[data-testid="stSidebarCollapsedControl"],
-[data-testid="collapsedControl"] {
-    visibility: visible !important;
-    display: flex !important;
-    position: fixed !important;
-    top: 50vh !important;
-    left: 0 !important;
-    z-index: 999999 !important;
-    background-color: #1f6feb !important;
-    border: 1px solid #58a6ff !important;
-    border-left: none !important;
-    border-radius: 0 8px 8px 0 !important;
-    padding: 8px 6px !important;
-    cursor: pointer !important;
-}
-[data-testid="stSidebarCollapsedControl"] *,
-[data-testid="collapsedControl"] * {
-    visibility: visible !important;
-    color: #ffffff !important;
-    fill: #ffffff !important;
-}
-
 html, body, [data-testid="stAppViewContainer"] {
     background-color: #0d1117; color: #e6edf3;
 }
